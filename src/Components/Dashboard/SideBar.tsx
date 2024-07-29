@@ -24,19 +24,19 @@ const SideBar = () => {
               </Link>
             </li>
             <li>
-              <Link to="/rooms" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
+              <Link to="/dashboard/rooms" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
                 <FaBed />
                 <span>Rooms</span>
               </Link>
             </li>
             <li>
-              <Link to="/payment" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
+              <Link to="/dashboard/payment" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
                 <MdOutlinePayment />
                 <span>Payment</span>
               </Link>
             </li>
             <li>
-              <Link to="/booking" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
+              <Link to="/dashboard/booking" className="flex items-center space-x-2 p-2 rounded hover:bg-secondary hover:text-secondary-foreground">
                 <LuCalendarCheck2 />
                 <span>Booking</span>
               </Link>

@@ -56,7 +56,7 @@ function Home(){
             <div className="bg-card p-4 rounded border border-border">
               <div className="flex justify-between items-center mb-2">
                 <span className="bg-accent text-accent-foreground px-2 py-1 rounded">2 Deals</span>
-                <img  alt="menu-icon" src="https://openui.fly.dev/openui/24x24.svg?text=⋮" />
+               
 
               </div>
               <div className="mb-2">

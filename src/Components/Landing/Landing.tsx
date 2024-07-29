@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import Logo from "../../assets/logo.png";
 import { FaLinkedin } from "react-icons/fa";
 import { IoLogoInstagram } from "react-icons/io";
@@ -6,10 +7,18 @@ import { CgProfile } from "react-icons/cg";
 import { useNavigate } from "react-router-dom";
 
 function Landing() {
-  const navigate=useNavigate();
-  const login=()=>{
-    navigate("/dashboard/home")
-  }
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const navigate = useNavigate();
+
+  const login = () => {
+    if (email === "admin123@gmail.com" && password === "admin@123") {
+      navigate("/dashboard/home");
+    } else {
+      alert("Invalid email or password");
+    }
+  };
+
   return (
     <div className="flex min-h-screen bg-black text-white">
       <div className="flex-1 flex flex-col justify-center items-start p-16 bg-cover bg-center">
@@ -50,10 +59,7 @@ function Landing() {
           <div className="bg-f8f1f1 p-8 rounded-lg shadow-lg dark:bg-gray-800">
             <form className="bg-gray-100 dark:bg-gray-800">
               <div className="mb-4">
-                <label
-                  htmlFor="email"
-                  className="block text-sm font-medium"
-                >
+                <label htmlFor="email" className="block text-sm font-medium">
                   Enter Email
                 </label>
                 <input
@@ -61,14 +67,13 @@ function Landing() {
                   id="email"
                   name="email"
                   placeholder="email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div className="mb-4">
-                <label
-                  htmlFor="password"
-                  className="block text-sm font-medium"
-                >
+                <label htmlFor="password" className="block text-sm font-medium">
                   Enter Password
                 </label>
                 <input
@@ -76,6 +81,8 @@ function Landing() {
                   id="password"
                   name="password"
                   placeholder="password"
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                   className="mt-1 block w-full px-3 py-2 bg-zinc-800 border border-zinc-600 rounded-md text-white focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>

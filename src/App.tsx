@@ -5,6 +5,8 @@ import Footer from "./Components/Footer/Footer";
 import Home from "./Components/Dashboard/Home";
 import Customer from "./Components/Dashboard/Customer/Customer";
 import Room from "./Components/Dashboard/Room/Room"; // Import the Room component
+import Payment from "./Components/Dashboard/Payment/Payment";
+import Booking from "./Components/Dashboard/Booking/Booking";
 
 const AppLayout = () => {
   return (
@@ -46,8 +48,16 @@ function App() {
               element: <Customer />,
             },
             {
-              path: "room",
+              path: "rooms",
               element: <Room />, 
+            },
+            {
+              path: "payment",
+              element: <Payment/>,
+            },
+            {
+             path: "booking",
+             element: <Booking/>,
             },
           ],
         },
