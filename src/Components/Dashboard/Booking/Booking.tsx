@@ -40,8 +40,8 @@ const Booking = () => {
         firstname: '',
         lastname: '',
         address: '',
-        customerId: 0, // Added
-        roomId: 0// Added
+        customerId: 0, 
+        roomId: 0
       });
     }
     setIsModalOpen(true);
