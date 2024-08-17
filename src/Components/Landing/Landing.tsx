@@ -12,7 +12,7 @@ function Landing() {
   const navigate = useNavigate();
 
   const login = () => {
-    if (email === "admin123@gmail.com" && password === "admin@123") {
+    if (email === "admin@gmail.com" && password === "admin123") {
       navigate("/dashboard/home");
     } else {
       alert("Invalid email or password");

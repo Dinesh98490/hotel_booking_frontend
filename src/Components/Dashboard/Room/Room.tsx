@@ -6,19 +6,20 @@ const RoomTable = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [rooms, setRooms] = useState([]);
   const [formData, setFormData] = useState({
-    id: '',
-    roomNumber: '',
+    id: null,
+    // roomNumber: '',
+    roomFloor: '',
     roomType: '',
     pricePerNight: '',
     availabilityStatus: ''
   });
 
-  // Fetch rooms from the server on component mount
   useEffect(() => {
     const fetchRooms = async () => {
       try {
         const response = await axios.get('http://localhost:8070/room');
-        setRooms(response.data.data);
+        console.log('API Response:', response.data); 
+        setRooms(response.data.data);  
       } catch (error) {
         console.error('Error fetching rooms:', error);
       }
@@ -31,8 +32,9 @@ const RoomTable = () => {
       setFormData(room);
     } else {
       setFormData({
-        id: '',
+        id: null,
         roomNumber: '',
+        roomFloor: '',
         roomType: '',
         pricePerNight: '',
         availabilityStatus: ''
@@ -48,7 +50,7 @@ const RoomTable = () => {
   const handlePost = async () => {
     try {
       const response = await axios.post('http://localhost:8070/room', formData);
-      setRooms([...rooms, response.data.data]);
+      setRooms(prevRooms => [...prevRooms, response.data.data]);
     } catch (error) {
       console.error('Error adding room:', error);
     }
@@ -57,7 +59,9 @@ const RoomTable = () => {
   const handleUpdate = async () => {
     try {
       const response = await axios.put(`http://localhost:8070/room/${formData.id}`, formData);
-      setRooms(rooms.map(room => room.id === formData.id ? response.data.data : room));
+      setRooms(prevRooms => 
+        prevRooms.map(room => room.id === formData.id ? response.data.data : room)
+      );
     } catch (error) {
       console.error('Error updating room:', error);
     }
@@ -76,7 +80,7 @@ const RoomTable = () => {
   const handleDelete = async (id) => {
     try {
       await axios.delete(`http://localhost:8070/room/${id}`);
-      setRooms(rooms.filter(room => room.id !== id));
+      setRooms(prevRooms => prevRooms.filter(room => room.id !== id));
     } catch (error) {
       console.error('Error deleting room:', error);
     }
@@ -87,7 +91,7 @@ const RoomTable = () => {
 
     const handleInputChange = (e) => {
       const { name, value } = e.target;
-      setFormData({ ...formData, [name]: value });
+      setFormData(prevFormData => ({ ...prevFormData, [name]: value }));
     };
 
     return (
@@ -104,6 +108,16 @@ const RoomTable = () => {
                 name="roomNumber"
                 className="border p-2 w-full"
                 value={formData.roomNumber}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="mt-2">
+              <label className="block">Room Floor:</label>
+              <input
+                type="text"
+                name="roomFloor"
+                className="border p-2 w-full"
+                value={formData.roomFloor}
                 onChange={handleInputChange}
               />
             </div>
@@ -161,7 +175,9 @@ const RoomTable = () => {
         <table className="min-w-full bg-white border border-gray-200">
           <thead>
             <tr className="bg-gray-100">
+              <th className="py-2 px-4 border-b">Room ID</th>
               <th className="py-2 px-4 border-b">Room Number</th>
+              {/* <th className="py-2 px-4 border-b">Room Floor</th> */}
               <th className="py-2 px-4 border-b">Room Type</th>
               <th className="py-2 px-4 border-b">Price Per Night</th>
               <th className="py-2 px-4 border-b">Availability Status</th>
@@ -171,10 +187,12 @@ const RoomTable = () => {
           <tbody>
             {rooms.map(room => (
               <tr key={room.id} className="hover:bg-gray-100 transition duration-300">
-                <td className="py-2 px-4 border-b">{room.roomFloor}</td>
-                <td className="py-2 px-4 border-b">{room.roomType}</td>
-                <td className="py-2 px-4 border-b">{room.pricePerNight}</td>
-                <td className="py-2 px-4 border-b">{room.availabilityStatus}</td>
+                <td className="py-2 px-4 border-b">{room.id}</td>
+                {/* <td className="py-2 px-4 border-b">{room.roomNumber}</td> */}
+                <td className="py-2 px-4 border-b">{room.roomfloor}</td>
+                <td className="py-2 px-4 border-b">{room.roomtype}</td>
+                <td className="py-2 px-4 border-b">{room.pricepernight}</td>
+                <td className="py-2 px-4 border-b">{room.availabilitystatus}</td>
                 <td className="py-2 px-4 border-b">
                   <button onClick={() => handleOpenModal(room)} className="px-2 py-1 bg-yellow-500 text-white rounded-full mr-2 hover:bg-yellow-600 transition duration-300">
                     <FaEdit />
@@ -189,7 +207,13 @@ const RoomTable = () => {
         </table>
       </div>
 
-      <Modal isOpen={isModalOpen} onClose={handleCloseModal} onSubmit={handleSubmit} formData={formData} setFormData={setFormData} />
+      <Modal 
+        isOpen={isModalOpen} 
+        onClose={handleCloseModal} 
+        onSubmit={handleSubmit} 
+        formData={formData} 
+        setFormData={setFormData} 
+      />
     </>
   );
 };
